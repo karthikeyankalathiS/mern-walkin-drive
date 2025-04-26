@@ -1,0 +1,55 @@
+https://jsonplaceholder.typicode.com/users
+
+import React, { useState, useEffect } from 'react';
+import './style.css';
+
+export default function App() {
+  const [response, setResponse] = useState([]);
+  const [selectedResult, setSelectedResult] = useState([]);
+
+  useEffect(() => {
+    fetch('https://jsonplaceholder.typicode.com/users')
+      .then((res) => res.json())
+      .then((res) => {
+        console.log('resp', res);
+        const results = [];
+        res.forEach((data, i) => {
+          if (i < 3) {
+            results.push(data);
+          }
+        });
+
+        setResponse(results);
+      })
+      .catch((err) => console.log('err', err));
+  }, []);
+
+  const showDescription = (data, i) => {
+    setSelectedResult([data]);
+  };
+
+  console.log(response);
+  return (
+    <div>
+      <h1>Hello StackBlitz!</h1>
+      <p>Start editing to see some magic happen :)</p>
+      {response?.map((data, index) => {
+        return (
+          <>
+            <div key={data.id} onClick={() => showDescription(data, index)}>
+              {data.name}
+            </div>
+          </>
+        );
+      })}
+      {selectedResult?.length > 0 ? (
+              <>
+                <div>UserName: {selectedResult[0].username}</div>
+                <div>Website: {selectedResult[0].website}</div>
+              </>
+            ) : (
+              <></>
+            )}
+    </div>
+  );
+}
