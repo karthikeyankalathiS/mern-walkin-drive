@@ -1,0 +1,86 @@
+Create a simple API that supports: 
+
+GET /users → Return a list of users 
+
+POST /users → Add a new user 
+
+GET /users/:id → Get user details by ID 
+
+PUT /users/:id → Update a user’s data 
+
+DELETE /users/:id → Delete a user 
+const express = require("express");
+
+const app = express();
+
+let users = [{
+  id:1,
+  name:'sara'
+},
+{
+  id:2,
+  name:'jai'
+}]
+
+// app.get("/users", (req, res) => {
+//   res.send(users);
+// });
+
+app.post("/addUser",(req,res) => {
+  const userObj = {
+    id:3,
+    name:'Kevin'
+  };
+  users.push(userObj);
+  res.send(`Updated user list `, users);
+  return;
+})
+
+app.get("/users/:id", (req, res) => {
+  console.log(req.query);
+  const id = req.query.params.id;
+ 
+  res.send(users[id]);
+});
+
+app.post("/users/getUserById", (req,res) => {
+  const {id} = req.body;
+
+  if(id) res.send(users[id]);
+  else res.send('No data found');
+})
+
+app.put("/users/updateUser/:id", (req,res) => {
+  const {id} = req.query.params;
+  const name = 'Jai'
+  if(id) {
+     users[id].name = name;
+  }
+
+  res.send(users);
+  return;
+
+})
+
+app.delete("/users/delete/:id", (req,res) => {
+  try{
+    const {id} = req.query.params;
+    let newUserArr = users.map((user) => {
+      if(user && user.id !== id) {
+        newUserArr.push(user);
+      }
+    })
+  
+    users = newUserArr;
+    
+    res.send(users);
+    return;
+  }
+  catch(err) {
+    res.send
+  }
+
+})
+
+
+app.listen(8080);
