@@ -1,0 +1,33 @@
+
+import React, { useState } from 'react';
+import './style.css';
+
+export default function App() {
+  const [collap, setCollap] = useState();
+  const[item,setItem]= useState(['item1','item2','item3'])
+
+  const clicking = () => {
+    if (isOpen(collap)) {
+      return collap;
+    } else {
+      return setCollap;
+    }
+  };
+  return (
+    <>
+    <ul>
+      {item.map((item)=>{
+       
+      })}
+      <li key={item.id}>
+   {item}
+      </li>
+    </ul>
+      <p>{collap}</p>
+      <button onClick={() => setCollap(!collap)}>click to collap</button>
+    </>
+  );
+}
+
+
+ 
