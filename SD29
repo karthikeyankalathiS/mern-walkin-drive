@@ -1,0 +1,33 @@
+load the sample response in dropdown
+
+API: https://restcountries.com/v3.1/all
+
+Ans: 
+
+import React from "react";
+import {useEffect, useState} from "react";
+import "./style.css";
+// https://restcountries.com/v3.1/all
+export default function App() {
+
+  useState [data, useData] = useState("");
+
+  useEffect = () => {
+   const data =  fetch("https://restcountries.com/v3.1/all")
+    try{
+      res.sent("data fatched")
+    }
+    catch{
+      res.sent("error occur")
+    }
+  }
+
+  return (
+   <>
+    <div>
+      {data}
+      <input type = "text" />
+    </div>
+   </>
+  );
+}
